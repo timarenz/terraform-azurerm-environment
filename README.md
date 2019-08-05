@@ -1,1 +1,1 @@
-# terraform-azure-environment
+# terraform-azurerm-environment
