@@ -13,8 +13,7 @@ variable "ttl" {
 }
 
 variable "region" {
-  type    = string
-  default = "West Europe"
+  type = string
 }
 
 variable "cidr_block" {
