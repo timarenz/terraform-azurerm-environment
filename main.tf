@@ -9,14 +9,14 @@ locals {
 data "azurerm_subscription" "current" {}
 
 resource "azurerm_resource_group" "main" {
-  name     = "${var.environment_name}-resourcegroup"
+  name     = var.name
   location = var.region
 
   tags = local.common_tags
 }
 
 resource "azurerm_virtual_network" "main" {
-  name                = "${var.environment_name}-virtualnetwork"
+  name                = "${var.name}-virtualnetwork"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   address_space       = [var.cidr_block]
@@ -26,10 +26,10 @@ resource "azurerm_virtual_network" "main" {
 
 resource "azurerm_subnet" "main" {
   count                = length(var.subnets)
-  name                 = "${var.environment_name}-${lookup(var.subnets[count.index], "name")}"
+  name                 = "${var.name}-${lookup(var.subnets[count.index], "name")}"
   resource_group_name  = azurerm_resource_group.main.name
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefix       = lookup(var.subnets[count.index], "prefix")
+  address_prefixes     = [lookup(var.subnets[count.index], "prefix")]
 }
 
 # soon™

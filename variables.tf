@@ -7,6 +7,10 @@ variable "owner_name" {
   default = null
 }
 
+variable "name" {
+  type = string
+}
+
 variable "ttl" {
   type    = number
   default = 48
